@@ -1,10 +1,12 @@
 package org.meicode.ceylonexportsproductmanagement.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import org.meicode.ceylonexportsproductmanagement.activity.ProductDetailsActivity
 import org.meicode.ceylonexportsproductmanagement.databinding.LayoutProductItemBinding
 import org.meicode.ceylonexportsproductmanagement.model.AddProductModel
 
@@ -27,6 +29,12 @@ class ProductAdapter(val context: Context, val list: ArrayList<AddProductModel>)
         holder.binding.textView4.text = data.productMrp
 
         holder.binding.button.text = data.productSp
+
+        holder.itemView.setOnClickListener{
+            val intent = Intent(context, ProductDetailsActivity::class.java)
+            intent.putExtra("id",list[position].productId)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
