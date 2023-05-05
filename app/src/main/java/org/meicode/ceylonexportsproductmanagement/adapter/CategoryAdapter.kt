@@ -1,12 +1,14 @@
 package org.meicode.ceylonexportsproductmanagement.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.meicode.ceylonexportsproductmanagement.R
+import org.meicode.ceylonexportsproductmanagement.activity.CategoryActivity
 import org.meicode.ceylonexportsproductmanagement.databinding.LayoutCategoryItemBinding
 import org.meicode.ceylonexportsproductmanagement.model.CategoryModel
 
@@ -24,6 +26,12 @@ class CategoryAdapter(var context: Context, val list: ArrayList<CategoryModel>) 
 
         holder.binding.textView2.text = list[position].cat
         Glide.with(context).load(list[position].img).into(holder.binding.imageView)
+
+        holder.itemView.setOnClickListener{
+            val intent = Intent(context,CategoryActivity::class.java)
+            intent.putExtra("cat",list[position].cat)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
