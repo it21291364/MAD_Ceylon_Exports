@@ -1,12 +1,18 @@
 package org.meicode.ceylonexportsproductmanagement.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.meicode.ceylonexportsproductmanagement.activity.ProductDetailsActivity
 
 import org.meicode.ceylonexportsproductmanagement.databinding.LayoutCartItemBinding
+import org.meicode.ceylonexportsproductmanagement.roomdb.AppDatabase
 import org.meicode.ceylonexportsproductmanagement.roomdb.ProductModel
 
 class CartAdaptor (val context: Context,  val list: List<ProductModel>):
@@ -28,6 +34,28 @@ RecyclerView.Adapter<CartAdaptor.CartViewHolder>(){
         Glide.with(context).load(list[position].productImage).into(holder.binding.imageView4)
         holder.binding.textView11.text = list[position].productName
         holder.binding.textView12.text = list[position].productSp
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, ProductDetailsActivity::class.java)
+            intent.putExtra("id", list[position].productId)
+            context.startActivity(intent)
+        }
+
+
+        val dao = AppDatabase.getInstance(context).productDao()
+        holder.binding.imageView5.setOnClickListener {
+
+            val launch = GlobalScope.launch(Dispatchers.IO) {
+                dao.deleteProduct(
+                    ProductModel
+                        (list[position].productId,
+                        list[position].productName,
+                        list[position].productImage,
+                        list[position].productSp)
+                )
+            }
+
+        }
 
     }
 
