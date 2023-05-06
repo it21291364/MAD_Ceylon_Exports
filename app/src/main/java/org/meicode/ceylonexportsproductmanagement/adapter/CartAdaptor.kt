@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import org.meicode.ceylonexportsproductmanagement.databinding.LayoutCartItemBinding
 import org.meicode.ceylonexportsproductmanagement.roomdb.ProductModel
 
-class CartAdaptor (val context: Context, val list: ArrayList<ProductModel>):
+class CartAdaptor (val context: Context,  val list: List<ProductModel>):
 RecyclerView.Adapter<CartAdaptor.CartViewHolder>(){
 
     inner class CartViewHolder( val binding : LayoutCartItemBinding):

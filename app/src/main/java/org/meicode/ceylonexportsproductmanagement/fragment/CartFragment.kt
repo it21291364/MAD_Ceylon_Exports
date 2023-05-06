@@ -1,5 +1,6 @@
 package org.meicode.ceylonexportsproductmanagement.fragment
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,10 +11,12 @@ import org.meicode.ceylonexportsproductmanagement.R
 import org.meicode.ceylonexportsproductmanagement.adapter.CartAdaptor
 import org.meicode.ceylonexportsproductmanagement.databinding.FragmentCartBinding
 import org.meicode.ceylonexportsproductmanagement.roomdb.AppDatabase
+import org.meicode.ceylonexportsproductmanagement.roomdb.ProductModel
 
 
 class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
+
 
 
 
@@ -31,15 +34,13 @@ class CartFragment : Fragment() {
 
         val dao = AppDatabase.getInstance(requireContext()).productDao()
 
-        dao.getAllProducts().observe(requireActivity()){
-            binding.cartRecycler.adapter = CartAdaptor(requireContext(),it)
+        dao.getAllProducts().observe(requireActivity()) {
+            binding.cartRecycler.adapter = CartAdaptor(requireContext() ,it)
 
         }
-        
+
         return binding.root
     }
-
-
 
 
 }
