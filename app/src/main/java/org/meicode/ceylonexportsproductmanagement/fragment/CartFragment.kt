@@ -16,6 +16,7 @@ import org.meicode.ceylonexportsproductmanagement.roomdb.ProductModel
 
 class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
+    private lateinit var list : ArrayList<String>
 
 
 
@@ -36,6 +37,11 @@ class CartFragment : Fragment() {
 
         dao.getAllProducts().observe(requireActivity()) {
             binding.cartRecycler.adapter = CartAdaptor(requireContext() ,it)
+
+            list.clear()
+            for (data in it){
+                list.add(data.productId)
+            }
 
         }
 
